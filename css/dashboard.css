@@ -1,0 +1,84 @@
+/* Dashboard-specific layout */
+
+.dashboard-card {
+    overflow: hidden;
+}
+
+.dashboard-card canvas {
+    width: 100%;
+    min-height: 320px;
+    background: #020617;
+    border-radius: 14px;
+    padding: 12px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.rank-cell {
+    font-weight: 800;
+    color: var(--accent-gold);
+}
+
+.team-cell {
+    font-weight: 700;
+}
+
+.group-badge {
+    display: inline-block;
+    min-width: 28px;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #1d4ed8;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.probability-value {
+    display: inline-block;
+    min-width: 58px;
+    font-weight: 700;
+}
+
+.model-note {
+    margin-top: 10px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.status-success {
+    color: var(--accent-green);
+}
+
+.status-running {
+    color: var(--accent-blue);
+}
+
+.status-error {
+    color: var(--accent-red);
+}
+
+.metric-positive {
+    color: var(--accent-green);
+}
+
+.metric-warning {
+    color: var(--accent-gold);
+}
+
+.metric-negative {
+    color: var(--accent-red);
+}
+
+.empty-state {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    background: rgba(2, 6, 23, 0.35);
+}
