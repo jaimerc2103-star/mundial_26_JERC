@@ -1,0 +1,346 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monte Carlo World Cup 2026 Simulator</title>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/bracket.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <meta name="theme-color" content="#07111f">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-left">
+            <img src="assets/logo.svg" class="logo" alt="World Cup">
+        </div>
+
+        <div class="header-center">
+            <h1>
+                FIFA World Cup 2026
+            </h1>
+
+            <h2>
+                Monte Carlo Simulator
+            </h2>
+        </div>
+
+    </header>
+
+    <!-- CONTROL PANEL -->
+
+    <section class="control-panel">
+
+        <div class="control-card">
+
+            <label>
+                Número de simulaciones
+            </label>
+
+            <select id="simulationCount">
+
+                <option value="10000">
+                    10.000
+                </option>
+
+                <option value="100000" selected>
+                    100.000
+                </option>
+
+                <option value="1000000">
+                    1.000.000
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-card">
+
+            <button id="runSimulationBtn">
+                Ejecutar Simulación
+            </button>
+
+        </div>
+
+    </section>
+
+    <!-- STATUS -->
+
+    <section class="status-panel">
+
+        <div class="status-card">
+
+            <h3>
+                Estado
+            </h3>
+
+            <span id="simulationStatus">
+                Esperando simulación...
+            </span>
+
+        </div>
+
+        <div class="status-card">
+
+            <h3>
+                Progreso
+            </h3>
+
+            <div class="progress-container">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+            <span id="progressText">
+                0%
+            </span>
+
+        </div>
+
+    </section>
+
+    <!-- KPI CARDS -->
+
+    <section class="kpi-grid">
+
+        <div class="kpi-card">
+            <h4>Campeón Probable</h4>
+            <span id="predictedChampion">-</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Finalista</h4>
+            <span id="predictedRunnerUp">-</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Equipos Simulados</h4>
+            <span id="totalTeams">48</span>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Modelo</h4>
+            <span>
+                Elo + Poisson
+            </span>
+        </div>
+
+    </section>
+
+    <!-- MAIN DASHBOARD -->
+
+    <main class="dashboard-grid">
+
+        <!-- CLASIFICACION -->
+
+        <section class="dashboard-card">
+
+            <h2>
+                Probabilidad Clasificación
+            </h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Equipo</th>
+                        <th>Grupo</th>
+                        <th>Probabilidad</th>
+                    </tr>
+                </thead>
+
+                <tbody id="qualificationTable">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <!-- CAMPEON -->
+
+        <section class="dashboard-card">
+
+            <h2>
+                Probabilidad de Campeón
+            </h2>
+
+            <canvas id="championChart"></canvas>
+
+        </section>
+
+    </main>
+
+    <!-- TOP 8 TERCEROS -->
+
+    <section class="dashboard-card">
+
+        <h2>
+            Mejores Terceros
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>Equipo</th>
+                    <th>Grupo</th>
+                    <th>Probabilidad</th>
+                </tr>
+
+            </thead>
+
+            <tbody id="bestThirdsTable">
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- BRACKET -->
+
+    <section class="dashboard-card">
+
+        <h2>
+            Llaves Eliminatorias
+        </h2>
+
+        <div id="bracketContainer">
+
+            <!-- 16avos -->
+
+            <div class="round-column">
+
+                <h3>16avos</h3>
+
+                <div id="round32">
+
+                </div>
+
+            </div>
+
+            <!-- Octavos -->
+
+            <div class="round-column">
+
+                <h3>Octavos</h3>
+
+                <div id="round16">
+
+                </div>
+
+            </div>
+
+            <!-- Cuartos -->
+
+            <div class="round-column">
+
+                <h3>Cuartos</h3>
+
+                <div id="quarterFinals">
+
+                </div>
+
+            </div>
+
+            <!-- Semis -->
+
+            <div class="round-column">
+
+                <h3>Semifinales</h3>
+
+                <div id="semiFinals">
+
+                </div>
+
+            </div>
+
+            <!-- Final -->
+
+            <div class="round-column">
+
+                <h3>Final</h3>
+
+                <div id="finalMatch">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- EXPORT -->
+
+    <section class="export-panel">
+
+        <button id="exportCSV">
+            Exportar CSV
+        </button>
+
+        <button id="exportJSON">
+            Exportar JSON
+        </button>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            Monte Carlo Simulator World Cup 2026
+        </p>
+
+        <p>
+            Elo + Poisson + FIFA Tie Break Rules
+        </p>
+
+    </footer>
+
+    <!-- APP -->
+
+    <script src="js/data/elo-ratings.js"></script>
+    <script src="js/data/groups.js"></script>
+    <script src="js/data/standings.js"></script>
+    <script src="js/data/fixtures.js"></script>
+
+    <script src="js/simulation/poisson.js"></script>
+    <script src="js/simulation/groupstage.js"></script>
+    <script src="js/simulation/tiebreakers.js"></script>
+    <script src="js/simulation/knockout.js"></script>
+
+    <script src="js/charts.js"></script>
+    <script src="js/export.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
+```
