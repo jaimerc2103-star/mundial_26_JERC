@@ -1,6 +1,6 @@
 /* ==========================================
    CHARTS
-   Visualizaciones con Chart.js
+   Visualizaciones compactas con Chart.js
    ========================================== */
 
 let championChartInstance = null;
@@ -13,7 +13,7 @@ function renderChampionChart(results) {
         return;
     }
 
-    const topTeams = results.champion.slice(0, 12);
+    const topTeams = results.champion.slice(0, 8);
 
     const labels = topTeams.map(row => row.team);
 
@@ -41,26 +41,22 @@ function renderChampionChart(results) {
                         "#fb7185",
                         "#34d399",
                         "#60a5fa",
-                        "#f97316",
-                        "#e879f9",
-                        "#14b8a6",
-                        "#c084fc",
-                        "#f43f5e"
+                        "#f97316"
                     ],
                     borderColor: "#eaf2ff",
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    maxBarThickness: 42
                 }
             ]
         },
         options: {
-            indexAxis: "y",
             responsive: true,
             maintainAspectRatio: false,
+
             plugins: {
                 legend: {
-                    labels: {
-                        color: "#eaf2ff"
-                    }
+                    display: false
                 },
                 tooltip: {
                     callbacks: {
@@ -70,8 +66,19 @@ function renderChampionChart(results) {
                     }
                 }
             },
+
             scales: {
                 x: {
+                    ticks: {
+                        color: "#eaf2ff",
+                        maxRotation: 45,
+                        minRotation: 0
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
                     beginAtZero: true,
                     ticks: {
                         color: "#9db3cc",
@@ -79,14 +86,6 @@ function renderChampionChart(results) {
                     },
                     grid: {
                         color: "rgba(148,163,184,0.15)"
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: "#eaf2ff"
-                    },
-                    grid: {
-                        display: false
                     }
                 }
             }
