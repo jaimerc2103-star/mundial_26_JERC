@@ -167,7 +167,7 @@ function renderAll(results) {
     renderKpis(results);
     renderQualificationTable(results);
     renderBestThirdsTable(results);
-    renderChampionChart(results);
+    //renderChampionChart(results);
     renderBracket(results);
 
 }
