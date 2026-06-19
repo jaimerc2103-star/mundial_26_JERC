@@ -13,7 +13,7 @@ function renderChampionChart(results) {
         return;
     }
 
-    const topTeams = results.champion.slice(0, 8);
+    const topTeams = results.champion.slice(0, 6);
 
     const labels = topTeams.map(row => row.team);
 
@@ -51,6 +51,7 @@ function renderChampionChart(results) {
             ]
         },
         options: {
+            indexAxis: "y",
             responsive: true,
             maintainAspectRatio: false,
 
